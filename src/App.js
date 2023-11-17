@@ -7,6 +7,7 @@ import * as yup from "yup";
 import React from "react";
 import { useFormik } from "formik";
 import "./App.css";
+import axios from "axios";
 
 function FormExample() {
   const schema = yup.object().shape({
@@ -35,8 +36,16 @@ function FormExample() {
 
   const formik = useFormik({
     validationSchema: schema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post(
+          "http://localhost:3300/createUser",
+          values
+        );
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     },
     initialValues: {
       date: "",
@@ -595,9 +604,9 @@ function FormExample() {
         </Row>
 
         <Button type="submit" className="button">
-          <a href="https://www.123formbuilder.com/free-form-templates/Production-Order-Form-3815837/">
-            Order
-          </a>
+          {/* <a href="https://www.123formbuilder.com/free-form-templates/Production-Order-Form-3815837/"> */}
+          Order
+          {/* </a> */}
         </Button>
       </Form>
     </div>
